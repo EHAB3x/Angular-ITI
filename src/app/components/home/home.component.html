@@ -1,1 +1,17 @@
-<p>home works!</p>
+<!-- 1. Interpolation (Binding) => {{}} -->
+<h1>{{myStore.name}}</h1>
+
+<!-- <img src="{{myStore.imgUrl}}" alt="store-img"> -->
+
+<!-- 2. Property Binding  -->
+<img [src]="myStore.imgUrl" alt="store-img">
+
+
+<!-- 3. Loop -->
+  <!-- a. First -->
+  <h3 *ngFor="let branch of myStore.branches">{{branch}}</h3>
+
+  <!-- b. Second -->
+  <!-- @for (branch of myStore.branches) {
+    <h3>{{branch}}</h3>
+  } -->
