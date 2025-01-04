@@ -1,17 +1,21 @@
 import { Component } from '@angular/core';
 import { IProduct } from '../../models/iproduct';
 import { CommonModule } from '@angular/common';
+import { ICategory } from '../../models/icategory';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
 export class ProductsComponent {
-  products: IProduct[]
-
+  products: IProduct[];
+  categories: ICategory[];
+  selectedCatId: number = 0;
+  totalOrderPrice : number = 0;
   constructor(){
     this.products = [
       {
@@ -42,7 +46,7 @@ export class ProductsComponent {
         id:400,
         name:"Redmi",
         price: 10000,
-        quantity: 2, 
+        quantity: 2,
         imgUrl:"https://placehold.co/100",
         catId:2,
       },
@@ -63,5 +67,30 @@ export class ProductsComponent {
         catId:3,
       },
     ]
+
+    this.categories = [
+      {
+        id:1,
+        name:"Laptop"
+      },
+      {
+        id:2,
+        name:"Mobile"
+      },
+      {
+        id:3,
+        name:"Tablet"
+      },
+    ]
+  }
+
+  buy(count:string, price:number){
+    // this.totalOrderPrice = Number(count) * price;
+    // this.totalOrderPrice = parseInt(count) * price;
+    this.totalOrderPrice += +count * price;
+  }
+
+  change(){
+    this.selectedCatId = 3
   }
 }
