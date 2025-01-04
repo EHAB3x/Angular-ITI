@@ -1,0 +1,13 @@
+
+
+<h1>Client Name: {{clientName}}</h1>
+<h1>Shop Name: {{product.name}}</h1>
+
+<img [src]="product.imgUrl" alt="">
+
+<div>
+  <p>Our Branches: </p>
+  <span *ngFor="let branch of product.branches">{{branch}}</span>
+</div>
+
+<p>Your Discount is: {{product.discount}}</p>

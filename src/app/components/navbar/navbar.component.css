@@ -1,0 +1,10 @@
+ul{
+  margin: 0;
+  padding: 1rem 3rem;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: gray;
+  color: white;
+}
