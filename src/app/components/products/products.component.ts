@@ -46,7 +46,7 @@ export class ProductsComponent {
         id:400,
         name:"Redmi",
         price: 10000,
-        quantity: 2,
+        quantity: 1,
         imgUrl:"https://placehold.co/100",
         catId:2,
       },
@@ -92,5 +92,9 @@ export class ProductsComponent {
 
   change(){
     this.selectedCatId = 3
+  }
+
+  trackItem(index: number, item:IProduct){
+    return item.id;
   }
 }
