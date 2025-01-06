@@ -1,7 +1,5 @@
 <h1>Total Order Price: {{ totalOrderPrice }} $</h1>
 
-<!-- <h2>Selected Category ID is: {{selectedCatId}}</h2> -->
-
 <div class="mb-3">
   <select class="form-select form-select-lg" [(ngModel)]="selectedCatId">
     <option *ngFor="let category of categories" [value]="category.id">
@@ -10,48 +8,37 @@
   </select>
 </div>
 
-<!-- <button (click)="change()">Change Category</button> -->
-
 <div class="row row-cols-1 row-cols-md-4 g-4">
-  <ng-container
-    *ngFor="
-      let product of products;
-      let i = index;
-      let c = count;
-      trackBy: trackItem
-    "
-  >
-    <!-- <div class="col" [class.d-none]="product.catId != selectedCatId" *ngIf="product.quantity != 0"> -->
-    <div class="col" *ngIf="product.quantity != 0">
-      <div class="card" [ngStyle]="{border:product.quantity == 1 ? '1px solid red' : ''}">
-        <img [src]="product.imgUrl" class="card-img-top" [alt]="product.name" />
-        <div
-          class="card-body"
-          [ngClass]="product.quantity == 1? 'text-danger':''"
-          [style.background-color]="product.quantity == 0 ? 'yellow' : 'white'"
-        >
-          <h5 class="card-title">{{ i + 1 + "." }}{{ product.name }}</h5>
-          <p class="card-text">Price: {{ product.price }}</p>
-          <!-- <p class="card-text" *ngIf="product.quantity != 1; else lastItem">Quantity: {{ product.quantity }}</p>
-          <ng-template #lastItem>
-            <p>Quantity: Last Item</p>
-          </ng-template> -->
-          <div [ngSwitch]="product.quantity">
-            <p *ngSwitchCase="1">Quantity: Last Item</p>
-            <p *ngSwitchCase="2">Quantity: Last Two Items</p>
-            <p *ngSwitchDefault="">Quantity: {{product.quantity}}</p>
-          </div>
-          <!-- <p class="card-text">Count: {{ c }}</p> -->
-          <!-- Template variable, reference -->
-          <input type="number" #countInp value="1"/>
-          <button
-            class="btn btn-success"
-            (click)="buy(countInp.value, product)"
-          >
-            Buy
-          </button>
-        </div>
+  @for (product of products; track product.id; let i = $index) {
+  <div class="col">
+    <div
+      class="card"
+    >
+      <img [src]="product.imgUrl" class="card-img-top" [alt]="product.name" />
+      <div
+        class="card-body"
+      >
+        <h5 class="card-title">{{ i + 1 + "." }}{{ product.name }}</h5>
+        <p class="card-text">Price: {{ product.price }}</p>
+
+        @switch (product.quantity) { @case (1) {
+        <p>Quantity: Last Item</p>
+        } @case (2) {
+        <p>Quantity: Last Two Items</p>
+        } @default {
+        <p>Quantity: {{ product.quantity }}</p>
+
+        } }
+
+        <!-- Template variable, reference -->
+        <input type="number" #countInp value="1" />
+        <button class="btn btn-success" (click)="buy(countInp.value, product)">
+          Buy
+        </button>
       </div>
     </div>
-  </ng-container>
+  </div>
+  }@empty{
+  <h1>No Products Found</h1>
+  }
 </div>
