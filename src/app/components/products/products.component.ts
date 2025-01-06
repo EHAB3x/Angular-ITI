@@ -84,10 +84,15 @@ export class ProductsComponent {
     ]
   }
 
-  buy(count:string, price:number){
+  buy(count:string, item:IProduct){
     // this.totalOrderPrice = Number(count) * price;
     // this.totalOrderPrice = parseInt(count) * price;
-    this.totalOrderPrice += +count * price;
+    if(+count <= item.quantity){
+      this.totalOrderPrice += +count * item.price;
+      item.quantity -= +count;
+    }else{
+      alert("Not enough quantity");
+    }
   }
 
   change(){

@@ -43,10 +43,10 @@
           </div>
           <!-- <p class="card-text">Count: {{ c }}</p> -->
           <!-- Template variable, reference -->
-          <input type="number" #countInp />
+          <input type="number" #countInp value="1"/>
           <button
             class="btn btn-success"
-            (click)="buy(countInp.value, product.price)"
+            (click)="buy(countInp.value, product)"
           >
             Buy
           </button>
