@@ -17,6 +17,8 @@ export class ProductsComponent {
   categories: ICategory[];
   selectedCatId: number = 0;
   totalOrderPrice : number = 0;
+  myDate: Date = new Date();
+
   constructor(){
     this.products = [
       {

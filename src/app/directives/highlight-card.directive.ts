@@ -7,7 +7,7 @@ import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 export class HighlightCardDirective {
 
   @Input() externalColor: string = 'black';
-  @Input('appHighlightCard') defaultColor: string = 'red';
+  @Input('appHighlightCard') defaultColor: string = 'gray';
 
   constructor(private ele:ElementRef) {
     ele.nativeElement.style.backgroundColor = this.defaultColor;
