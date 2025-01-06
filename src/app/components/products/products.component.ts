@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { ICategory } from '../../models/icategory';
 import { FormsModule } from '@angular/forms';
 import { HighlightCardDirective } from '../../directives/highlight-card.directive';
+import { SquarePipe } from '../../pipes/square.pipe';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule, FormsModule, HighlightCardDirective],
+  imports: [CommonModule, FormsModule, HighlightCardDirective, SquarePipe],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
@@ -17,7 +18,10 @@ export class ProductsComponent {
   categories: ICategory[];
   selectedCatId: number = 0;
   totalOrderPrice : number = 0;
+  // Pipes Variables for Testing
   myDate: Date = new Date();
+  num : number = 4;
+
 
   constructor(){
     this.products = [
