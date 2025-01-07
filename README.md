@@ -49,3 +49,13 @@ We have two types of interaction
 2. **Unrelated**
     - **Siblings**
       - **Service**
+
+## Events in JS
+Have two things to implement it:  
+
+1. **Publisher**
+    - **Define Event**
+    - **Fire Event**
+
+2. **Subscriber**
+    - **Listen**

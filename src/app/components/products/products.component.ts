@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { IProduct } from '../../models/iproduct';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -19,8 +19,10 @@ export class ProductsComponent implements OnChanges{
   // Pipes Variables for Testing
   myDate: Date = new Date();
   num: number = 4;
-  //Inputs
+  // Inputs
   @Input() receivedCatId : number = 0;
+  // Define Event
+  @Output() onTotalPriceChanged:EventEmitter<number>;
 
   constructor() {
     this.products = [
@@ -75,6 +77,8 @@ export class ProductsComponent implements OnChanges{
     ];
 
     this.filteredProducts = this.products;
+
+    this.onTotalPriceChanged = new EventEmitter<number>;
   }
 
   buy(count: string, item: IProduct) {
@@ -83,6 +87,8 @@ export class ProductsComponent implements OnChanges{
     if (+count <= item.quantity) {
       this.totalOrderPrice += +count * item.price;
       item.quantity -= +count;
+      // Fire Event
+      this.onTotalPriceChanged.emit(this.totalOrderPrice);
     } else {
       alert('Not enough quantity');
     }
@@ -91,7 +97,7 @@ export class ProductsComponent implements OnChanges{
   change() {
     // this.selectedCatId = 3;
   }
-   
+
   trackItem(index: number, item: IProduct) {
     return item.id;
   }

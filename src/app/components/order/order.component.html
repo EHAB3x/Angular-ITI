@@ -8,5 +8,7 @@
 </div>
 
 <div class="bg-primary my-5">
-  <app-products [receivedCatId]="selectedCatId"></app-products>
+  <app-products [receivedCatId]="selectedCatId" (onTotalPriceChanged)="calcTotalPrice($event)"></app-products>
 </div>
+
+<h1>{{receivedTotalPrice | currency}}</h1>

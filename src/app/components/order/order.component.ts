@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
 export class OrderComponent {
   categories: ICategory[];
   selectedCatId: number = 0;
-  totalOrderPrice: number = 0;
+  receivedTotalPrice: number = 0;
 
   constructor(){
         this.categories = [
@@ -31,5 +31,9 @@ export class OrderComponent {
             name: 'Tablet',
           },
         ];
+  }
+
+  calcTotalPrice(top: number){
+    this.receivedTotalPrice = top
   }
 }
