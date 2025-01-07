@@ -1,6 +1,7 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component } from '@angular/core';
 import { IProduct } from '../../models/iproduct';
 import { CommonModule } from '@angular/common';
+import { ICategory } from '../../models/icategory';
 import { FormsModule } from '@angular/forms';
 import { HighlightCardDirective } from '../../directives/highlight-card.directive';
 import { SquarePipe } from '../../pipes/square.pipe';
@@ -12,15 +13,15 @@ import { SquarePipe } from '../../pipes/square.pipe';
   templateUrl: './products.component.html',
   styleUrl: './products.component.css',
 })
-export class ProductsComponent implements OnChanges{
+export class ProductsComponent {
   products: IProduct[];
   filteredProducts: IProduct[];
+  categories: ICategory[];
+  selectedCatId: number = 0;
   totalOrderPrice: number = 0;
   // Pipes Variables for Testing
   myDate: Date = new Date();
   num: number = 4;
-  //Inputs
-  @Input() receivedCatId : number = 0;
 
   constructor() {
     this.products = [
@@ -74,6 +75,21 @@ export class ProductsComponent implements OnChanges{
       },
     ];
 
+    this.categories = [
+      {
+        id: 1,
+        name: 'Laptop',
+      },
+      {
+        id: 2,
+        name: 'Mobile',
+      },
+      {
+        id: 3,
+        name: 'Tablet',
+      },
+    ];
+
     this.filteredProducts = this.products;
   }
 
@@ -89,24 +105,21 @@ export class ProductsComponent implements OnChanges{
   }
 
   change() {
-    // this.selectedCatId = 3;
+    this.selectedCatId = 3;
   }
-   
+
   trackItem(index: number, item: IProduct) {
     return item.id;
   }
 
-  ngOnChanges() {
-    this.filterProducts();
-  }
-
   filterProducts() {
-    if (this.receivedCatId == 0) {
-      this.filteredProducts = this.products;
-    } else {
-      this.filteredProducts = this.products.filter(
-        (prd) => prd.catId == this.receivedCatId
-      );
-    }
+
+    this.filteredProducts = this.products.filter(
+      (prd) => {prd.catId == this.selectedCatId
+        console.log(this.selectedCatId);
+
+      }
+    );
+    console.log(this.filteredProducts);
   }
 }

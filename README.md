@@ -13,12 +13,12 @@ ng g c "Component_Name"
 Something you apply on value to change it's format:
 
 1. **Built-in Pipes**
-   - **DatePipe**
-   - **UpperCasePipe**
-   - **LowerCasePipe**
-   - **CurrencyPipe** 
-   - **DecimalPipe** 
-   - **PercentPipe** 
+    - **DatePipe**
+    - **UpperCasePipe**
+    - **LowerCasePipe**
+    - **CurrencyPipe** 
+    - **DecimalPipe** 
+    - **PercentPipe** 
 
 2. **Custom Pipes**
 
@@ -27,16 +27,25 @@ Something you apply on value to change it's format:
 Component have 4 different phases.
 
 1. **Creation**
-   - **Constructor**
+    - **Constructor**
 
 2. **Change Detection**
-   - **ngOnInit** => Run once after the component initialized
-   - **ngOnChanges** => Run every time the component's input change
-   - **ngAfterViewInit** => Run once after the component's view initialized
-   - **ngAfterContentInit** => Run once after the component's content initialized
+    - **ngOnInit** => Run once after the component initialized
+    - **ngOnChanges** => Run every time the component's input change
+    - **ngAfterViewInit** => Run once after the component's view initialized
+    - **ngAfterContentInit** => Run once after the component's content initialized
 
-3. **Rendering**
-   - **afterRender**
+3. **Destruction**
+    - **ngOnDestroy**
 
-4. **Destruction**
-   - **ngOnDestroy**
+
+## Component Interaction
+We have two types of interaction 
+
+1. **Related**
+    - **Parent to Child (Vice Versa)**
+      - **Decorator Functions**
+
+2. **Unrelated**
+    - **Siblings**
+      - **Service**
