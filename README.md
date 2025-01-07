@@ -21,3 +21,22 @@ Something you apply on value to change it's format:
    - **PercentPipe** 
 
 2. **Custom Pipes**
+
+
+## Component Lifecycle
+Component have 4 different phases.
+
+1. **Creation**
+   - **Constructor**
+
+2. **Change Detection**
+   - **ngOnInit** => Run once after the component initialized
+   - **ngOnChanges** => Run every time the component's input change
+   - **ngAfterViewInit** => Run once after the component's view initialized
+   - **ngAfterContentInit** => Run once after the component's content initialized
+
+3. **Rendering**
+   - **afterRender**
+
+4. **Destruction**
+   - **ngOnDestroy**
