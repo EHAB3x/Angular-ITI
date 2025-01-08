@@ -5,11 +5,12 @@ import { FormsModule } from '@angular/forms';
 import { HighlightCardDirective } from '../../directives/highlight-card.directive';
 import { NationalIdPipe } from '../../pipes/national-id.pipe';
 import { CreditCardPipe } from '../../pipes/credit-card.pipe';
+import { SquarePipe } from '../../pipes/square.pipe';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule, FormsModule, HighlightCardDirective, NationalIdPipe, CreditCardPipe],
+  imports: [CommonModule, FormsModule, HighlightCardDirective, SquarePipe, NationalIdPipe, CreditCardPipe],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css',
 })
@@ -23,7 +24,8 @@ export class ProductsComponent implements OnChanges{
   // Inputs
   @Input() receivedCatId : number = 0;
   // Define Event
-  @Output() onTotalPriceChanged:EventEmitter<number>;
+  @Output() onProductAdded: EventEmitter<IProduct>;
+  @Output() onTotalPriceChanged: EventEmitter<number>
 
   constructor() {
     this.products = [
@@ -79,7 +81,9 @@ export class ProductsComponent implements OnChanges{
 
     this.filteredProducts = this.products;
 
-    this.onTotalPriceChanged = new EventEmitter<number>;
+    this.onProductAdded = new EventEmitter<IProduct>;
+
+    this.onTotalPriceChanged = new EventEmitter<number>
   }
 
   buy(count: string, item: IProduct) {
@@ -87,9 +91,10 @@ export class ProductsComponent implements OnChanges{
     // this.totalOrderPrice = parseInt(count) * price;
     if (+count <= item.quantity) {
       this.totalOrderPrice += +count * item.price;
-      item.quantity -= +count;
       // Fire Event
+      this.onProductAdded.emit({...item, userCount:+count});
       this.onTotalPriceChanged.emit(this.totalOrderPrice);
+      item.quantity -= +count;
     } else {
       alert('Not enough quantity');
     }

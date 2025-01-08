@@ -8,7 +8,42 @@
 </div>
 
 <div class="bg-primary my-5">
-  <app-products [receivedCatId]="selectedCatId" (onTotalPriceChanged)="calcTotalPrice($event)"></app-products>
+  <app-products
+    [receivedCatId]="selectedCatId"
+    (onProductAdded)="getProductsFromChild($event)"
+    (onTotalPriceChanged) = "calcTotalPrice($event)"
+  ></app-products>
 </div>
 
-<h1>{{receivedTotalPrice | currency}}</h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th class="text-center" scope="col">ID</th>
+      <th class="text-center" scope="col">Name</th>
+      <th class="text-center" scope="col">Price</th>
+      <th class="text-center" scope="col">quantity</th>
+      <th class="text-center" scope="col">Count</th>
+      <th class="text-center" scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let product of receivedProducts">
+      <td class="text-center">{{ product.id }}</td>
+      <td class="text-center">{{ product.name }}</td>
+      <td class="text-center">{{ product.price }}</td>
+      <td class="text-center">{{ product.quantity }}</td>
+      <td class="text-center">{{ product.userCount }}</td>
+      <td class="text-center">
+        <button
+          class="btn btn-danger"
+          (click)="removeProduct(product.id)"
+          >
+          remove
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h2 class="text-center">Total Order Price: {{totalOrderPrice}}</h2>
