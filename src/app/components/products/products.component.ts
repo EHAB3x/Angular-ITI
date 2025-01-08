@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HighlightCardDirective } from '../../directives/highlight-card.directive';
 import { NationalIdPipe } from '../../pipes/national-id.pipe';
+import { CreditCardPipe } from '../../pipes/credit-card.pipe';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule, FormsModule, HighlightCardDirective, NationalIdPipe],
+  imports: [CommonModule, FormsModule, HighlightCardDirective, NationalIdPipe, CreditCardPipe],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css',
 })
