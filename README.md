@@ -13,3 +13,9 @@
 ```bash
 ng g service "Service_Name"
 ```
+
+
+##  Routes
+We use routes to navigate between pages and change component to be displayed.
+  - Routes Array follows "First match win" Principle.
+  - We need to put "not found" route at the tail of the array. 
