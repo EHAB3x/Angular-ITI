@@ -8,7 +8,7 @@
   - Singleton Design Pattern 
   - Create Only One Instance
   - All Components Can Watch This Instance
-  - To generate a new Angular Directive, use the following command:  
+  - To generate a new Angular Service, use the following command:  
 
 ```bash
 ng g service "Service_Name"

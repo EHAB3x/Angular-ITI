@@ -6,6 +6,7 @@ import { HighlightCardDirective } from '../../directives/highlight-card.directiv
 import { NationalIdPipe } from '../../pipes/national-id.pipe';
 import { CreditCardPipe } from '../../pipes/credit-card.pipe';
 import { SquarePipe } from '../../pipes/square.pipe';
+import { StaticProductsService } from '../../services/static-products.service';
 
 @Component({
   selector: 'app-products',
@@ -27,57 +28,9 @@ export class ProductsComponent implements OnChanges{
   @Output() onProductAdded: EventEmitter<IProduct>;
   @Output() onTotalPriceChanged: EventEmitter<number>
 
-  constructor() {
-    this.products = [
-      {
-        id: 100,
-        name: 'Dell Laptop',
-        price: 20000,
-        quantity: 3,
-        imgUrl: 'https://placehold.co/100',
-        catId: 1,
-      },
-      {
-        id: 200,
-        name: 'HP Laptop',
-        price: 25000,
-        quantity: 0,
-        imgUrl: 'https://placehold.co/100',
-        catId: 1,
-      },
-      {
-        id: 300,
-        name: 'Iphone',
-        price: 60000,
-        quantity: 2,
-        imgUrl: 'https://placehold.co/100',
-        catId: 2,
-      },
-      {
-        id: 400,
-        name: 'Redmi',
-        price: 10000,
-        quantity: 1,
-        imgUrl: 'https://placehold.co/100',
-        catId: 2,
-      },
-      {
-        id: 500,
-        name: 'Samsung Tablet',
-        price: 35000,
-        quantity: 0,
-        imgUrl: 'https://placehold.co/100',
-        catId: 3,
-      },
-      {
-        id: 600,
-        name: 'Lenovo Tablet',
-        price: 12000,
-        quantity: 4,
-        imgUrl: 'https://placehold.co/100',
-        catId: 3,
-      },
-    ];
+  constructor(private _StaticProductsService: StaticProductsService) {
+
+    this.products = _StaticProductsService.getAllProducts();
 
     this.filteredProducts = this.products;
 
@@ -109,16 +62,17 @@ export class ProductsComponent implements OnChanges{
   }
 
   ngOnChanges() {
-    this.filterProducts();
+    // this.filterProducts();
+    this.filteredProducts= this._StaticProductsService.getProductByCatId(this.receivedCatId);
   }
 
-  filterProducts() {
-    if (this.receivedCatId == 0) {
-      this.filteredProducts = this.products;
-    } else {
-      this.filteredProducts = this.products.filter(
-        (prd) => prd.catId == this.receivedCatId
-      );
-    }
-  }
+  // filterProducts() {
+  //   if (this.receivedCatId == 0) {
+  //     this.filteredProducts = this.products;
+  //   } else {
+  //     this.filteredProducts = this.products.filter(
+  //       (prd) => prd.catId == this.receivedCatId
+  //     );
+  //   }
+  // }
 }
