@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { IProduct } from '../../models/iproduct';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -7,15 +14,24 @@ import { NationalIdPipe } from '../../pipes/national-id.pipe';
 import { CreditCardPipe } from '../../pipes/credit-card.pipe';
 import { SquarePipe } from '../../pipes/square.pipe';
 import { StaticProductsService } from '../../services/static-products.service';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule, FormsModule, HighlightCardDirective, SquarePipe, NationalIdPipe, CreditCardPipe],
+  imports: [
+    CommonModule,
+    FormsModule,
+    HighlightCardDirective,
+    SquarePipe,
+    NationalIdPipe,
+    CreditCardPipe,
+    RouterLink,
+  ],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css',
 })
-export class ProductsComponent implements OnChanges{
+export class ProductsComponent implements OnChanges {
   products: IProduct[];
   filteredProducts: IProduct[];
   totalOrderPrice: number = 0;
@@ -23,20 +39,22 @@ export class ProductsComponent implements OnChanges{
   myDate: Date = new Date();
   num: number = 4;
   // Inputs
-  @Input() receivedCatId : number = 0;
+  @Input() receivedCatId: number = 0;
   // Define Event
   @Output() onProductAdded: EventEmitter<IProduct>;
-  @Output() onTotalPriceChanged: EventEmitter<number>
+  @Output() onTotalPriceChanged: EventEmitter<number>;
 
-  constructor(private _StaticProductsService: StaticProductsService) {
-
+  constructor(
+    private _StaticProductsService: StaticProductsService,
+    private router: Router
+  ) {
     this.products = _StaticProductsService.getAllProducts();
 
     this.filteredProducts = this.products;
 
-    this.onProductAdded = new EventEmitter<IProduct>;
+    this.onProductAdded = new EventEmitter<IProduct>();
 
-    this.onTotalPriceChanged = new EventEmitter<number>
+    this.onTotalPriceChanged = new EventEmitter<number>();
   }
 
   buy(count: string, item: IProduct) {
@@ -45,7 +63,7 @@ export class ProductsComponent implements OnChanges{
     if (+count <= item.quantity) {
       this.totalOrderPrice += +count * item.price;
       // Fire Event
-      this.onProductAdded.emit({...item, userCount:+count});
+      this.onProductAdded.emit({ ...item, userCount: +count });
       this.onTotalPriceChanged.emit(this.totalOrderPrice);
       item.quantity -= +count;
     } else {
@@ -63,7 +81,9 @@ export class ProductsComponent implements OnChanges{
 
   ngOnChanges() {
     // this.filterProducts();
-    this.filteredProducts= this._StaticProductsService.getProductByCatId(this.receivedCatId);
+    this.filteredProducts = this._StaticProductsService.getProductByCatId(
+      this.receivedCatId
+    );
   }
 
   // filterProducts() {
@@ -75,4 +95,8 @@ export class ProductsComponent implements OnChanges{
   //     );
   //   }
   // }
+
+  navigateToDetails(id: number) {
+    this.router.navigate(['/details', id]);
+  }
 }

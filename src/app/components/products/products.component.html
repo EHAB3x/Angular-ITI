@@ -1,17 +1,11 @@
 <div class="row row-cols-1 row-cols-md-4 g-4">
   @for (product of filteredProducts; track product.id; let i = $index) {
   <div class="col">
-    <div
-      class="card"
-      appHighlightCard = 'gray'
-      externalColor = 'pink'
-    >
+    <div class="card" appHighlightCard="gray" externalColor="pink">
       <img [src]="product.imgUrl" class="card-img-top" [alt]="product.name" />
-      <div
-        class="card-body"
-      >
+      <div class="card-body">
         <h5 class="card-title">{{ i + 1 + "." }}{{ product.name }}</h5>
-        <p class="card-text">Price: {{ product.price | currency:'EUR' }}</p>
+        <p class="card-text">Price: {{ product.price | currency : "EUR" }}</p>
 
         @switch (product.quantity) { @case (1) {
         <p>Quantity: Last Item</p>
@@ -23,9 +17,13 @@
         } }
 
         <!-- Template variable, reference -->
-        <input type="number" #countInp value="1" />
-        <button class="btn btn-success" (click)="buy(countInp.value, product)">
+        <!-- <input type="number" #countInp value="1" /> -->
+        <!-- <button class="btn btn-success" (click)="buy(countInp.value, product)">
           Buy
+        </button> -->
+        <!-- <button class="btn btn-success" routerLink="/details">Details</button> -->
+        <button class="btn btn-success" (click)="navigateToDetails(product.id)">
+          Details
         </button>
       </div>
     </div>
@@ -38,7 +36,6 @@
 <!-- <h2>{{myDate | date:'shortDate'}}</h2> -->
 
 <!-- <h2>{{num | square:3}}</h2> -->
-
 
 <!-- <h2>National ID: {{30307011601637 | nationalId}}</h2> -->
 
