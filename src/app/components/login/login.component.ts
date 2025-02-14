@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UserAuthService } from '../../services/user-auth.service';
 
 @Component({
   selector: 'app-login',
@@ -9,4 +10,20 @@ import { Component } from '@angular/core';
 })
 export class LoginComponent {
 
+  isUserLogged : boolean;
+
+  constructor(private _userAuthService : UserAuthService){
+    this.isUserLogged = this._userAuthService.getUserLogged();
+  }
+
+  login(){
+    this._userAuthService.login();
+
+    this.isUserLogged = this._userAuthService.getUserLogged();
+  }
+
+  logout(){
+    this._userAuthService.logout()
+    this.isUserLogged = this._userAuthService.getUserLogged();
+  }
 }
