@@ -6,11 +6,13 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { VisionComponent } from './components/vision/vision.component';
 import { ValuesComponent } from './components/values/values.component';
 import { DetailsComponent } from './components/details/details.component';
+import { LoginComponent } from './components/login/login.component';
 
 export const routes: Routes = [
   // First Match Wins
   { path: '', pathMatch: 'full', component: HomeComponent },
   { path: 'home', component: HomeComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'products', component: ProductsComponent },
   { path: 'details/:id', component: DetailsComponent },
   {
