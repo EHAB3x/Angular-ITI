@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { StaticProductsService } from '../../services/static-products.service';
 import { IProduct } from '../../models/iproduct';
 import { Location } from '@angular/common';
+import { ApiProductsService } from '../../services/api-products.service';
 
 @Component({
   selector: 'app-details',
@@ -13,41 +14,58 @@ import { Location } from '@angular/common';
 })
 export class DetailsComponent implements OnInit {
   currentId: number = 0;
-  product : IProduct | null = null;
-  idsArr : number[];
+  product: IProduct | null = null;
+  idsArr !: number[];
   currentIdIndex: number = 0;
   constructor(
     private _activatedRoute: ActivatedRoute,
-    private _StaticProductsService: StaticProductsService,
+    private _ApiProductsService: ApiProductsService,
     private _Location: Location,
     private router: Router
   ) {
-    this.idsArr = this._StaticProductsService.mapProductsToIds();
   }
 
   ngOnInit(): void {
-    this._activatedRoute.paramMap.subscribe((paramMap)=>{
-      this.currentId = Number(paramMap.get('id'));
-      this.product = this._StaticProductsService.getProductById(this.currentId);
+
+    this._ApiProductsService.getAllProducts().subscribe({
+      next:(products)=>{
+        this.idsArr = products.map((prd)=> prd.id)
+      }
     })
-    // this.currentId = Number(this._activatedRoute.snapshot.paramMap.get('id'));
+
+    this._activatedRoute.paramMap.subscribe((paramMap) => {
+      this.currentId = Number(paramMap.get('id'));
+      this._ApiProductsService.getProductById(this.currentId).subscribe({
+        next: (res) => {
+          this.product = res;
+        },
+
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    });
   }
 
-  goBack(){
-    this._Location.back()
+  goBack() {
+    this._Location.back();
   }
 
-  goPrevious(){
-    this.currentIdIndex = this.idsArr.findIndex((id)=> id == this.currentId);
-    if(this.currentIdIndex != 0){
-      this.router.navigateByUrl(`details/${this.idsArr[this.currentIdIndex - 1]}`)
+  goPrevious() {
+    this.currentIdIndex = this.idsArr.findIndex((id) => id == this.currentId);
+    if (this.currentIdIndex != 0) {
+      this.router.navigateByUrl(
+        `details/${this.idsArr[this.currentIdIndex - 1]}`
+      );
     }
   }
 
-  goNext(){
-    this.currentIdIndex = this.idsArr.findIndex((id)=> id == this.currentId);
-    if(this.currentIdIndex != this.idsArr.length - 1){
-      this.router.navigateByUrl(`details/${this.idsArr[this.currentIdIndex + 1]}`)
+  goNext() {
+    this.currentIdIndex = this.idsArr.findIndex((id) => id == this.currentId);
+    if (this.currentIdIndex != this.idsArr.length - 1) {
+      this.router.navigateByUrl(
+        `details/${this.idsArr[this.currentIdIndex + 1]}`
+      );
     }
   }
 }
