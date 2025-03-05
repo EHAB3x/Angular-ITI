@@ -1,0 +1,29 @@
+<form>
+  <div class="mb-3">
+    <label for="exampleInputName" class="form-label">Name:</label>
+    <input type="text" class="form-control" id="exampleInputName" />
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPrice" class="form-label">Price:</label>
+    <input type="number" class="form-control" id="exampleInputPrice" />
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputQuantity" class="form-label">Quantity:</label>
+    <input type="number" class="form-control" id="exampleInputQuantity" />
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputImage" class="form-label">Image:</label>
+    <input type="file" class="form-control" id="exampleInputImage" />
+  </div>
+
+  <div class="mb-3">
+    <label for="categories" class="form-label">Categories:</label>
+
+    <select class="form-select form-select-lg" name="" id="">
+      @for(cat of categories; track cat.id){
+        <option [value]="cat.id">{{cat.name}}</option>
+      }
+    </select>
+  </div>
+
+</form>
