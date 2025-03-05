@@ -1,8 +1,10 @@
+import { Observable } from 'rxjs';
 import {
   Component,
   EventEmitter,
   Input,
   OnChanges,
+  OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
@@ -15,6 +17,7 @@ import { CreditCardPipe } from '../../pipes/credit-card.pipe';
 import { SquarePipe } from '../../pipes/square.pipe';
 import { StaticProductsService } from '../../services/static-products.service';
 import { Router, RouterLink } from '@angular/router';
+import { ApiProductsService } from '../../services/api-products.service';
 
 @Component({
   selector: 'app-products',
@@ -31,9 +34,9 @@ import { Router, RouterLink } from '@angular/router';
   templateUrl: './products.component.html',
   styleUrl: './products.component.css',
 })
-export class ProductsComponent implements OnChanges {
-  products: IProduct[];
-  filteredProducts: IProduct[];
+export class ProductsComponent implements OnChanges, OnInit {
+  products: IProduct[] = [] as IProduct[];
+  filteredProducts: IProduct[] = [] as IProduct[];
   totalOrderPrice: number = 0;
   // Pipes Variables for Testing
   myDate: Date = new Date();
@@ -45,16 +48,24 @@ export class ProductsComponent implements OnChanges {
   @Output() onTotalPriceChanged: EventEmitter<number>;
 
   constructor(
-    private _StaticProductsService: StaticProductsService,
+    private _ApiProductsService: ApiProductsService,
     private router: Router
   ) {
-    this.products = _StaticProductsService.getAllProducts();
-
-    this.filteredProducts = this.products;
-
     this.onProductAdded = new EventEmitter<IProduct>();
 
     this.onTotalPriceChanged = new EventEmitter<number>();
+  }
+  ngOnInit(): void {
+    this._ApiProductsService.getAllProducts().subscribe({
+      next: (res) => {
+        this.products = res;
+        this.filteredProducts = this.products;
+      },
+
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 
   buy(count: string, item: IProduct) {
@@ -80,10 +91,14 @@ export class ProductsComponent implements OnChanges {
   }
 
   ngOnChanges() {
-    // this.filterProducts();
-    this.filteredProducts = this._StaticProductsService.getProductByCatId(
-      this.receivedCatId
-    );
+    this._ApiProductsService.getProductsByCatId(this.receivedCatId).subscribe({
+      next: (res) => {
+        this.filteredProducts = res;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 
   // filterProducts() {
