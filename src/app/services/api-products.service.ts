@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IProduct } from '../models/iproduct';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
@@ -9,16 +10,16 @@ import { IProduct } from '../models/iproduct';
 export class ApiProductsService {
   constructor(private httpClient: HttpClient) {}
 
-  getAllProducts(): Observable<IProduct[]> {
-    return this.httpClient.get<IProduct[]>('http://localhost:3000/products');
+  getAllProducts():Observable<IProduct[]> {
+    return this.httpClient.get<IProduct[]>(`${environment.baseUrl}/products`);
   }
 
   getProductById(id: number):Observable<IProduct>{
-    return this.httpClient.get<IProduct>(`http://localhost:3000/products/${id}`);
+    return this.httpClient.get<IProduct>(`${environment.baseUrl}/products/${id}`);
   }
 
   getProductsByCatId(catId: number):Observable<IProduct[]>{
-    return this.httpClient.get<IProduct[]>(`http://localhost:3000/products?catId=${catId}`)
+    return this.httpClient.get<IProduct[]>(`${environment.baseUrl}/products?catId=${catId}`)
   }
 
   addProduct() {}
