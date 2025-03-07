@@ -10,19 +10,28 @@ import { environment } from '../../environments/environment.development';
 export class ApiProductsService {
   constructor(private httpClient: HttpClient) {}
 
-  getAllProducts():Observable<IProduct[]> {
+  getAllProducts(): Observable<IProduct[]> {
     return this.httpClient.get<IProduct[]>(`${environment.baseUrl}/products`);
   }
 
-  getProductById(id: number):Observable<IProduct>{
-    return this.httpClient.get<IProduct>(`${environment.baseUrl}/products/${id}`);
+  getProductById(id: number): Observable<IProduct> {
+    return this.httpClient.get<IProduct>(
+      `${environment.baseUrl}/products/${id}`
+    );
   }
 
-  getProductsByCatId(catId: number):Observable<IProduct[]>{
-    return this.httpClient.get<IProduct[]>(`${environment.baseUrl}/products?catId=${catId}`)
+  getProductsByCatId(catId: number): Observable<IProduct[]> {
+    return this.httpClient.get<IProduct[]>(
+      `${environment.baseUrl}/products?catId=${catId}`
+    );
   }
 
-  addProduct() {}
+  addProduct(newProduct: IProduct): Observable<IProduct> {
+    return this.httpClient.post<IProduct>(
+      `${environment.baseUrl}/products`,
+      newProduct
+    );
+  }
 
   deleteProductById() {}
 

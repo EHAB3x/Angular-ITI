@@ -47,6 +47,14 @@
       "quantity": 4,
       "imgUrl": "https://placehold.co/100",
       "catId": 3
+    },
+    {
+      "name": "product1",
+      "price": 500,
+      "quantity": 5,
+      "imgUrl": "C:\\fakepath\\Zoom-Logo.jpg",
+      "catId": "3",
+      "id": 601
     }
   ],
   "categories": [
