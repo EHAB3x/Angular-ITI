@@ -1,4 +1,4 @@
-<!-- <h1>{{prdName.errors | json}}</h1> -->
+<h1>{{ prdCat.value| json }}</h1>
 
 <form (submit)="addNewProduct()" #addPrdForm="ngForm">
   <div class="mb-3">
@@ -14,10 +14,12 @@
       id="exampleInputName"
     />
     @if (prdName.invalid && prdName.touched){
-      <div class="text-danger">
-        <p *ngIf="prdName.errors?.['required']">Name is required</p>
-        <p *ngIf="prdName.errors?.['pattern']">Name must be at least 3 characters</p>
-      </div>
+    <div class="text-danger">
+      <p *ngIf="prdName.errors?.['required']">Name is required</p>
+      <p *ngIf="prdName.errors?.['pattern']">
+        Name must be at least 3 characters
+      </p>
+    </div>
     }
   </div>
   <div class="mb-3">
@@ -26,19 +28,44 @@
       type="number"
       [(ngModel)]="newProduct.price"
       name="price"
+      #prdPrice="ngModel"
+      required
+      min="1"
+      max="10000"
       class="form-control"
       id="exampleInputPrice"
     />
+    @if (prdPrice.invalid && prdPrice.touched) {
+    <div class="text-danger">
+      <p *ngIf="prdPrice.errors?.['required']">Price is required</p>
+      @if (prdPrice.errors?.['min'] || prdPrice.errors?.['max']) {
+      <p>Price Must be Between 1 and 10000</p>
+      }
+    </div>
+    }
   </div>
   <div class="mb-3">
     <label for="exampleInputQuantity" class="form-label">Quantity:</label>
     <input
       type="number"
       [(ngModel)]="newProduct.quantity"
+      #prdQuantity="ngModel"
+      required
+      min="1"
+      max="50"
       name="quantity"
       class="form-control"
       id="exampleInputQuantity"
     />
+
+    @if (prdQuantity.invalid && prdQuantity.touched) {
+      <div class="text-danger">
+        <p *ngIf="prdQuantity.errors?.['required']">Quantity is required</p>
+        @if (prdQuantity.errors?.['min'] || prdQuantity.errors?.['max']) {
+        <p>Quantity Must be Between 1 and 50</p>
+        }
+      </div>
+    }
   </div>
   <div class="mb-3">
     <label for="exampleInputImage" class="form-label">Image:</label>
@@ -46,26 +73,41 @@
       type="file"
       [(ngModel)]="newProduct.imgUrl"
       name="imgUrl"
+      #prdImg="ngModel"
+      required
       class="form-control"
       id="exampleInputImage"
     />
+
+    @if(prdImg.invalid && prdImg.touched){
+      <p class="text-danger" *ngIf="prdImg.errors?.['required']">Product image is required</p>
+    }
   </div>
 
   <div class="mb-3">
     <label for="categories" class="form-label">Categories:</label>
 
-    <select class="form-select form-select-lg" name="catId" id="" [(ngModel)]="newProduct.catId">
+    <select
+      class="form-select form-select-lg"
+      name="catId"
+      id=""
+      [(ngModel)]="newProduct.catId"
+      required
+      #prdCat = "ngModel"
+    >
       @for(cat of categories; track cat.id){
       <option [value]="cat.id">{{ cat.name }}</option>
       }
     </select>
+
+    @if (prdCat.invalid && prdCat.touched) {
+      <div class="text-danger">
+        <p *ngIf="prdCat.errors?.['required']">Product Category is required</p>
+      </div>
+    }
   </div>
 
-  <button
-    type="submit"
-    class="btn btn-primary"
-    [disabled]="addPrdForm.invalid"
-  >
+  <button type="submit" class="btn btn-primary" [disabled]="addPrdForm.invalid">
     Submit
   </button>
 </form>
