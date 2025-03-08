@@ -10,16 +10,27 @@ import { LoginComponent } from './components/login/login.component';
 import { authGuard } from './guards/auth.guard';
 import { AddProductComponent } from './components/add-product/add-product.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { EditProductComponent } from './components/edit-product/edit-product.component';
+import { DashboardProductsComponent } from './components/dashboard-products/dashboard-products.component';
 
 export const routes: Routes = [
   // First Match Wins
   { path: '', pathMatch: 'full', component: HomeComponent },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'products', component: ProductsComponent, canActivate:[authGuard]},
+  { path: 'products', component: ProductsComponent, canActivate: [authGuard] },
   { path: 'details/:id', component: DetailsComponent },
-  { path: 'dashboard', component:DashboardComponent},
-  { path: 'dashboard/add-product', component: AddProductComponent },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate:[authGuard],
+    children: [
+      { path: 'products', component: DashboardProductsComponent },
+      { path: 'add-product', component: AddProductComponent },
+      { path: 'edit-product/:prdId', component: EditProductComponent },
+      { path: '', redirectTo: 'products', pathMatch: 'full' }, // Optional default
+    ],
+  },
   {
     path: 'about',
     component: AboutUsComponent,

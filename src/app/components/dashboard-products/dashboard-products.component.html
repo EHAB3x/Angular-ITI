@@ -1,0 +1,39 @@
+<div class="products__dashboard">
+  <h1 class="products__counter">You Have {{products.length}} Products</h1>
+
+  <button routerLink="/dashboard/add-product" class="btn btn-primary add__product">Add Product</button>
+
+  <div class="table__container">
+    <table class="table table-hover table-responsive">
+      <thead>
+        <tr class="text-center">
+          <th>ID</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>imgUrl</th>
+          <th>catId</th>
+          <th>operations</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @for (prd of products; track prd.id) {
+          <tr class="text-center">
+            <td>{{prd.id}}</td>
+            <td>{{prd.name}}</td>
+            <td>{{prd.price}}</td>
+            <td>{{prd.quantity}}</td>
+            <td>{{prd.imgUrl}}</td>
+            <td>{{prd.catId}}</td>
+            <td class="d-flex gap-2">
+              <button class="btn btn-info" (click)="navigateToEdit(prd.id)">Edit</button>
+              <button class="btn btn-danger" (click)="deleteProduct(prd.id)">Delete</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+</div>

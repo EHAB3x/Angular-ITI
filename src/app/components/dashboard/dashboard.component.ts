@@ -1,36 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiProductsService } from '../../services/api-products.service';
 import { IProduct } from '../../models/iproduct';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterOutlet],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })
-export class DashboardComponent implements OnInit {
-  products!: IProduct[];
-  constructor(private _ApiProductsService: ApiProductsService) {}
-
-  ngOnInit(): void {
-    this._ApiProductsService.getAllProducts().subscribe({
-      next: (res) => {
-        this.products = res;
-      },
-    });
-  }
-
-  deleteProduct(id: number) {
-    this._ApiProductsService.deleteProductById(id).subscribe({
-      next: () => {
-        this.products = this.products.filter((prd)=> prd.id !== id)
-        alert('Product Deleted Successfully');
-      },error:(err)=>{
-        alert(err);
-
-      }
-    });
-  }
+export class DashboardComponent{
 }
