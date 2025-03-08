@@ -33,7 +33,9 @@ export class ApiProductsService {
     );
   }
 
-  deleteProductById() {}
+  deleteProductById(id:number):Observable<void>{
+    return this.httpClient.delete<void>(`${environment.baseUrl}/products/${id}`)
+  }
 
   updateProductById() {}
 }

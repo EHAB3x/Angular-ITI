@@ -1,4 +1,4 @@
-<h1>{{ prdCat.value| json }}</h1>
+<!-- <h1>{{ prdCat.value| json }}</h1> -->
 
 <form (submit)="addNewProduct()" #addPrdForm="ngForm">
   <div class="mb-3">
@@ -9,14 +9,14 @@
       name="name"
       #prdName="ngModel"
       required
-      pattern="^[a-zA-Z]{3,15}$"
+      minlength="3"
       class="form-control"
       id="exampleInputName"
     />
     @if (prdName.invalid && prdName.touched){
     <div class="text-danger">
       <p *ngIf="prdName.errors?.['required']">Name is required</p>
-      <p *ngIf="prdName.errors?.['pattern']">
+      <p *ngIf="prdName.errors?.['minlength']">
         Name must be at least 3 characters
       </p>
     </div>

@@ -8,19 +8,29 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [RouterLink],
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css'
+  styleUrl: './dashboard.component.css',
 })
-export class DashboardComponent implements OnInit{
-
-  products !: IProduct[]
-  constructor(private _ApiProductsService :ApiProductsService){}
+export class DashboardComponent implements OnInit {
+  products!: IProduct[];
+  constructor(private _ApiProductsService: ApiProductsService) {}
 
   ngOnInit(): void {
     this._ApiProductsService.getAllProducts().subscribe({
-      next:(res)=>{
+      next: (res) => {
         this.products = res;
-      }
-    })
+      },
+    });
   }
 
+  deleteProduct(id: number) {
+    this._ApiProductsService.deleteProductById(id).subscribe({
+      next: () => {
+        this.products = this.products.filter((prd)=> prd.id !== id)
+        alert('Product Deleted Successfully');
+      },error:(err)=>{
+        alert(err);
+
+      }
+    });
+  }
 }

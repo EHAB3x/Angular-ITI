@@ -28,7 +28,7 @@
             <td>{{prd.catId}}</td>
             <td class="d-flex gap-2">
               <button class="btn btn-info">Edit</button>
-              <button class="btn btn-danger">Delete</button>
+              <button class="btn btn-danger" (click)="deleteProduct(prd.id)">Delete</button>
             </td>
           </tr>
         }

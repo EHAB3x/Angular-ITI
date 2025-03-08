@@ -36,7 +36,7 @@ export class AddProductComponent implements OnInit {
     this._ApiProductsService.addProduct(this.newProduct).subscribe({
       next: () => {
         alert('Done');
-        this.router.navigateByUrl("/products")
+        this.router.navigateByUrl("/dashboard")
       },
 
       error: (err) => {
