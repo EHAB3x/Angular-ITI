@@ -9,6 +9,7 @@ import { DetailsComponent } from './components/details/details.component';
 import { LoginComponent } from './components/login/login.component';
 import { authGuard } from './guards/auth.guard';
 import { AddProductComponent } from './components/add-product/add-product.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 export const routes: Routes = [
   // First Match Wins
@@ -17,7 +18,8 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'products', component: ProductsComponent, canActivate:[authGuard]},
   { path: 'details/:id', component: DetailsComponent },
-  { path: 'add-product', component: AddProductComponent },
+  { path: 'dashboard', component:DashboardComponent},
+  { path: 'dashboard/add-product', component: AddProductComponent },
   {
     path: 'about',
     component: AboutUsComponent,
