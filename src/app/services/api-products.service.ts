@@ -33,9 +33,16 @@ export class ApiProductsService {
     );
   }
 
-  deleteProductById(id:number):Observable<void>{
-    return this.httpClient.delete<void>(`${environment.baseUrl}/products/${id}`)
+  deleteProductById(id: number): Observable<void> {
+    return this.httpClient.delete<void>(
+      `${environment.baseUrl}/products/${id}`
+    );
   }
 
-  updateProductById() {}
+  updateProductById(id: number, newProduct: IProduct): Observable<void> {
+    return this.httpClient.put<void>(
+      `${environment.baseUrl}/products/${id}`,
+      newProduct
+    );
+  }
 }

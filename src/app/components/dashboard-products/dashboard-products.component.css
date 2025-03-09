@@ -1,0 +1,17 @@
+.products__dashboard{
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.products__dashboard .add__product{
+  width: fit-content;
+}
+
+.products__dashboard .table__container{
+  overflow: auto;
+}
+
+.products__dashboard .table__container table th,
+.products__dashboard .table__container table td{
+  white-space: nowrap;
+}

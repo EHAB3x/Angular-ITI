@@ -47,6 +47,14 @@
       "quantity": 4,
       "imgUrl": "https://placehold.co/100",
       "catId": 3
+    },
+    {
+      "name": "product",
+      "price": 500,
+      "quantity": 25,
+      "imgUrl": "C:\\fakepath\\UDP-01.gif",
+      "catId": "1",
+      "id": 601
     }
   ],
   "categories": [
