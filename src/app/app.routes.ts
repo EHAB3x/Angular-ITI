@@ -12,12 +12,14 @@ import { AddProductComponent } from './components/add-product/add-product.compon
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EditProductComponent } from './components/edit-product/edit-product.component';
 import { DashboardProductsComponent } from './components/dashboard-products/dashboard-products.component';
+import { RegisterComponent } from './components/register/register.component';
 
 export const routes: Routes = [
   // First Match Wins
   { path: '', pathMatch: 'full', component: HomeComponent },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
   { path: 'products', component: ProductsComponent, canActivate: [authGuard] },
   { path: 'details/:id', component: DetailsComponent },
   {
